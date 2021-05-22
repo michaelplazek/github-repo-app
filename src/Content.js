@@ -1,17 +1,21 @@
-import React from "react";
-import { useQuery } from "react-query";
-import { fetchRepos, fetchUser } from "./api";
+import React, { Fragment } from "react";
 import { Box } from "grommet";
 import RepoList from "./components/RepoList";
 import Error from "./components/Error";
 import {parseUserFromLocation} from "./api/utils";
+import UserInfo from "./components/UserInfo";
 
 const Content = () => {
   const validPath = parseUserFromLocation();
   return (
-    <Box fill={true} align='center' justify='center'>
+    <Box align='center' justify='center' margin='large'>
       {validPath ? (
-        <RepoList />
+        (
+          <Fragment>
+            <UserInfo />
+            <RepoList />
+          </Fragment>
+        )
       ) : <Error message='Invalid path. Please a path in the form /{username}.' />}
     </Box>
   );

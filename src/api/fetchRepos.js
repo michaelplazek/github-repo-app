@@ -20,10 +20,12 @@ const transformRepoData = compose(
   )
 );
 
-export default async () => {
+const fetchRepos = async () => {
   const user = parseUserFromLocation();
   if (user) {
     const { data } = await axios.get(`users/${user}/repos`);
     return transformRepoData(data);
   }
 };
+
+export default fetchRepos;

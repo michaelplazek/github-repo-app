@@ -3,8 +3,8 @@ import {Box, Spinner} from "grommet";
 
 const Loading = () => {
   return (
-    <Box>
-      <Spinner />
+    <Box margin={{ top: 'xlarge' }}>
+      <Spinner size='medium' />
     </Box>
   );
 };

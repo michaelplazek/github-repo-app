@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Heading, Text } from "grommet";
 import { Star as StarIcon } from "grommet-icons/icons";
+import {setLocation} from "../../api/utils";
 
 const ListItem = ({ name, description, htmlUrl, language, stars }) => {
   return (
@@ -11,6 +12,8 @@ const ListItem = ({ name, description, htmlUrl, language, stars }) => {
       margin="small"
       round="small"
       pad="medium"
+      onClick={() => setLocation(htmlUrl)}
+      hoverIndicator={true}
     >
       <Box basis="3/4">
         <Box>

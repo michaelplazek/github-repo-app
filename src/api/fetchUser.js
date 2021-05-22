@@ -1,18 +1,19 @@
 import axios from "./axios";
 import pick from "lodash/fp/pick";
 import compose from "lodash/fp/compose";
-import map from "lodash/fp/map";
 import {convertToCamelCase, parseUserFromLocation} from "./utils";
 
 const transformUserData = compose(
-  map(convertToCamelCase),
-  map(pick(["avatar_url", "html_url", "public_repos", "bio", "name", "email"]))
+  convertToCamelCase,
+  pick(["avatar_url", "html_url", "bio", "login"])
 );
 
-export default async () => {
+const fetchUser = async () => {
   const user = parseUserFromLocation();
   if (user) {
-    const { data } = await axios.get(`/users/${user}/repos`);
+    const { data } = await axios.get(`/users/${user}`);
     return transformUserData(data);
   }
 };
+
+export default fetchUser;
