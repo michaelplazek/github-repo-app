@@ -1,2 +1,2 @@
-export { default as fetchUser } from './fetchUser';
-export { default as fetchRepos } from './fetchRepos';
+export { default as fetchUser } from "./fetchUser";
+export { default as fetchRepos } from "./fetchRepos";
