@@ -12,13 +12,13 @@ import { fetchRepos } from "../../api";
 const RepoList = () => {
   const [searchString, setSearchString] = useState("");
   const {
-    data: repos,
+    data = [],
     error,
     isLoading,
     isSuccess,
     isError,
   } = useQuery("fetchRepos", fetchRepos, { retry: 2, refetchInterval: 10000 });
-  const filteredRepos = filterRepos(repos, searchString);
+  const filteredRepos = filterRepos(data.repos, searchString);
   const isEmpty = filteredRepos?.length === 0;
   return (
     <Box gap="small">
@@ -30,7 +30,7 @@ const RepoList = () => {
             <Search
               value={searchString}
               onChange={setSearchString}
-              placeholderText={`Search ${repos.length} repositories...`}
+              placeholderText={`Search ${data.repos.length} repositories...`}
             />
           </Box>
           <Box align="center" gap="medium">

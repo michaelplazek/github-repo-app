@@ -20,12 +20,30 @@ const transformRepoData = compose(
   )
 );
 
-const fetchRepos = async () => {
-  const user = parseUserFromLocation();
-  if (user) {
-    const { data } = await axios.get(`users/${user}/repos`);
-    return transformRepoData(data);
+export const getNextLink = (headers) => {
+  const linkTag = headers.link.split(";")[0];
+  // :shrug:
+  return linkTag.replace("<", "").replace(">", "");
+};
+
+const fetchRepos = async ({ pageParam }) => {
+  let data, headers;
+  if (!pageParam) {
+    const user = parseUserFromLocation();
+    if (user) {
+      const response = await axios.get(`users/${user}/repos`);
+      data = response.data;
+      headers = response.headers;
+    }
+  } else {
+    const response = await axios.get(pageParam.nextLink);
+    data = response.data;
+    headers = response.headers;
   }
+  return {
+    repos: transformRepoData(data),
+    nextLink: getNextLink(headers),
+  };
 };
 
 export default fetchRepos;
