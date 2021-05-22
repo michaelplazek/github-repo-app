@@ -6,11 +6,11 @@ import { fetchRepos } from "../../api";
 import Error from "../Error";
 import Loading from "./Loading";
 import Search from "../Search";
-import {filterRepos} from "./utils";
+import { filterRepos } from "./utils";
 import Empty from "./Empty";
 
 const RepoList = () => {
-  const [searchString, setSearchString] = useState('');
+  const [searchString, setSearchString] = useState("");
   const {
     data: repos,
     error,
@@ -26,30 +26,38 @@ const RepoList = () => {
       {isLoading && <Loading />}
       {isSuccess && (
         <Box>
-          <Box margin={{ vertical: 'medium' }} width='xlarge'>
-            <Search value={searchString} onChange={setSearchString} placeholderText={`Search ${repos.length} repositories...`} />
+          <Box margin={{ vertical: "medium" }} width="xlarge">
+            <Search
+              value={searchString}
+              onChange={setSearchString}
+              placeholderText={`Search ${repos.length} repositories...`}
+            />
           </Box>
-          <Box align='center' gap='medium'>
-            {!isEmpty ? filteredRepos.map(
-              ({
-                 name,
-                 description,
-                 id,
-                 htmlUrl,
-                 language,
-                 stargazersCount: stars,
-               }) => (
-                <ListItem
-                  key={id}
-                  name={name}
-                  description={description}
-                  id={id}
-                  htmlUrl={htmlUrl}
-                  language={language}
-                  stars={stars}
-                />
+          <Box align="center" gap="medium">
+            {!isEmpty ? (
+              filteredRepos.map(
+                ({
+                  name,
+                  description,
+                  id,
+                  htmlUrl,
+                  language,
+                  stargazersCount: stars,
+                }) => (
+                  <ListItem
+                    key={id}
+                    name={name}
+                    description={description}
+                    id={id}
+                    htmlUrl={htmlUrl}
+                    language={language}
+                    stars={stars}
+                  />
+                )
               )
-            ) : <Empty message='No matching repositories' />}
+            ) : (
+              <Empty message="No matching repositories" />
+            )}
           </Box>
         </Box>
       )}

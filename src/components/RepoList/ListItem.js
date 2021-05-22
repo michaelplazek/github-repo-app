@@ -7,7 +7,7 @@ const ListItem = ({ name, description, htmlUrl, language, stars }) => {
   return (
     <Box
       justify="between"
-      width='xlarge'
+      width="xlarge"
       direction="row"
       round="small"
       pad="medium"
