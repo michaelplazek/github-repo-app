@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Heading } from "grommet";
 import ListItem from "./ListItem";
 import { useQuery } from "react-query";
 import { fetchRepos } from "../../api";
 import Error from "../Error";
 import Loading from "./Loading";
+import Search from "./Search";
 
 const RepoList = () => {
+  const [searchString, setSearchString] = useState('');
   const {
     data: repos,
     error,
@@ -25,6 +27,9 @@ const RepoList = () => {
             alignSelf="center"
             level={2}
           >{`${repos.length} Repositories`}</Heading>
+          <Box margin={{ top: 'medium', horizontal: 'medium', bottom: 'small' }}>
+            <Search value={searchString} onChange={setSearchString} placeholderText={`Search for a repository...`} />
+          </Box>
           {repos.map(
             ({
               name,
