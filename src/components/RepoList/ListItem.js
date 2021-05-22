@@ -1,14 +1,14 @@
 import React from "react";
 import { Box, Heading, Text } from "grommet";
-import { Star as StarIcon } from "grommet-icons/icons";
-import { setLocation } from "../../api/utils";
+import { Star as StarIcon } from "grommet-icons";
+import { setLocation } from "../../api";
 
 const ListItem = ({ name, description, htmlUrl, language, stars }) => {
   return (
     <Box
       justify="between"
+      width="xlarge"
       direction="row"
-      margin="small"
       round="small"
       pad="medium"
       background="#333"
