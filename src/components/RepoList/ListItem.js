@@ -11,7 +11,7 @@ const ListItem = ({ name, description, htmlUrl, language, stars }) => {
       margin="small"
       round="small"
       pad="medium"
-      background='#333'
+      background="#333"
       onClick={() => setLocation(htmlUrl)}
       hoverIndicator={true}
     >
