@@ -15,7 +15,7 @@ const Content = () => {
           <RepoList />
         </Fragment>
       ) : (
-        <Error message="Invalid path. Please a path in the form /{username}." />
+        <Error message="Invalid path. Please enter a path in the form /{username}." />
       )}
     </Box>
   );
