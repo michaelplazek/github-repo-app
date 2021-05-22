@@ -3,18 +3,13 @@ import { Box, Heading, Text } from "grommet";
 import { useQuery } from "react-query";
 import { fetchUser } from "../../api";
 import { setLocation } from "../../api/utils";
-import Error from "../Error";
 
 const UserInfo = () => {
-  const {
-    data: user,
-    error,
-    isSuccess,
-    isError,
-  } = useQuery("fetchUser", fetchUser, { retry: 2 });
+  const { data: user, isSuccess } = useQuery("fetchUser", fetchUser, {
+    retry: 2,
+  });
   return (
     <Box margin={{ bottom: "medium" }}>
-      {isError && <Error message={error.message} />}
       {isSuccess && (
         <Box
           direction="row"
