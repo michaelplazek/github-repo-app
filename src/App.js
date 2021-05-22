@@ -1,10 +1,13 @@
 import {QueryClientProvider, QueryClient} from "react-query";
+import { Grommet, grommet as theme } from "grommet";
 import Content from "./Content";
 
 const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <Content />
+    <Grommet full={true} theme={theme}>
+      <Content />
+    </Grommet>
   </QueryClientProvider>
 )
 
