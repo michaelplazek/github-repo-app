@@ -1,6 +1,10 @@
 /*
 Color codes for all languages
 from https://gist.github.com/robertpeteuil/bb2dc86f3b3e25d203664d61410bfa30
+
+Unfortunately, the GitHub REST API doesn't provide the colors
+like the GraphQL one. There are better ways to do this, but this
+works.
 */
 .ABAP { background-color: #E8274B; }
 .ActionScript { background-color: #882B0F; }
