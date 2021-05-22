@@ -1,19 +1,23 @@
 import axios from './axios';
 import pick from 'lodash/fp/pick'
-import {parseUserFromLocation} from "../utils";
+import compose from 'lodash/fp/compose';
+import map from 'lodash/fp/map';
+import {convertToCamelCase, parseUserFromLocation} from "./utils";
 
-const transformUserData = pick([
-  'avatar_url',
-  'html_url',
-  'public_repos',
-  'bio',
-  'name',
-  'email',
-])
+const transformUserData = compose(
+  map(convertToCamelCase),
+  map(pick([
+    'avatar_url',
+    'html_url',
+    'public_repos',
+    'bio',
+    'name',
+    'email',
+  ]))
+)
 
 export default async () => {
   const user = parseUserFromLocation();
-  console.log(user);
-  const { data } = await axios.get(`users/${user}`);
+  const { data } = await axios.get(`https://api.github.com/repos/michaelplazek/blockparty/languages`);
   return transformUserData(data);
 }

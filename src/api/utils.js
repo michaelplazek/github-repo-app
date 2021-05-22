@@ -1,5 +1,11 @@
-export const getPath = () => window.location.pathname;
+import { camel } from 'case';
 
+export const convertToCamelCase = (item) => Object.entries(item).reduce((accum, [key, value]) => ({
+  ...accum,
+  [camel(key)]: value,
+}), {})
+
+export const getPath = () => window.location.pathname;
 export const parseUserFromLocation = () => {
   const pathname = getPath();
   const paths = pathname.split("/");
@@ -13,3 +19,4 @@ export const parseUserFromLocation = () => {
 export const setLocation = (location) => {
   window.open(location, "_blank");
 };
+
