@@ -3,17 +3,18 @@ import { useQuery } from "react-query";
 import { fetchRepos, fetchUser } from "./api";
 import { Box } from "grommet";
 import RepoList from "./components/RepoList";
+import Error from "./components/Error";
+import {parseUserFromLocation} from "./api/utils";
 
 const Content = () => {
-  useQuery("fetchUser", () => fetchUser("michaelplazek"));
-  const {
-    data: repos,
-    error,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useQuery("fetchRepos", () => fetchRepos("michaelplazek"));
-  return <Box>{isSuccess && <RepoList repos={repos} />}</Box>;
+  const validPath = parseUserFromLocation();
+  return (
+    <Box fill={true} align='center' justify='center'>
+      {validPath ? (
+        <RepoList />
+      ) : <Error message='Invalid path. Please a path in the form /{username}.' />}
+    </Box>
+  );
 };
 
 export default Content;

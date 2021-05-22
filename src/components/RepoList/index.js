@@ -1,11 +1,26 @@
 import React from "react";
-import { Box } from "grommet";
+import {Box} from "grommet";
 import ListItem from "./ListItem";
+import {useQuery} from "react-query";
+import {fetchRepos} from "../../api";
+import Empty from "./Empty";
+import Error from "../Error";
+import Loading from "./Loading";
 
-const RepoList = ({ repos }) => {
+const RepoList = () => {
+  const {
+    data: repos,
+    error,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useQuery("fetchRepos", fetchRepos, { retry: 3 });
   return (
     <Box gap="small">
-      {repos.map(
+      {isError && <Error message={error} />}
+      {isLoading && <Loading />}
+      {isSuccess && !repos.length && <Empty />}
+      {isSuccess && repos.length && repos.map(
         ({
           name,
           description,
@@ -15,6 +30,7 @@ const RepoList = ({ repos }) => {
           stargazersCount: stars,
         }) => (
           <ListItem
+            key={id}
             name={name}
             description={description}
             id={id}

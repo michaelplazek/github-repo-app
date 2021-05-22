@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Heading, Text } from "grommet";
 import { Star as StarIcon } from "grommet-icons/icons";
 
-const ListItem = ({ name, description, id, htmlUrl, language, stars }) => {
+const ListItem = ({ name, description, htmlUrl, language, stars }) => {
   return (
     <Box
       justify="between"
@@ -11,7 +11,6 @@ const ListItem = ({ name, description, id, htmlUrl, language, stars }) => {
       margin="small"
       round="small"
       pad="medium"
-      key={id}
     >
       <Box basis="3/4">
         <Box>
@@ -22,10 +21,12 @@ const ListItem = ({ name, description, id, htmlUrl, language, stars }) => {
         <Box margin={{ bottom: "small" }}>
           <Text>{description}</Text>
         </Box>
-        <Box direction="row" align="center" gap="xsmall">
-          <Box className={language} round={true} width="15px" height="15px" />
-          <Text color="dark-2">{language}</Text>
-        </Box>
+        {language && (
+          <Box direction="row" align="center" gap="xsmall">
+            <Box className={language} round={true} width="15px" height="15px" />
+            <Text color="dark-2">{language}</Text>
+          </Box>
+        )}
       </Box>
       <Box>
         <Box direction="row" align="center" gap="4px">
@@ -34,7 +35,6 @@ const ListItem = ({ name, description, id, htmlUrl, language, stars }) => {
             {stars}
           </Text>
         </Box>
-        <Box></Box>
       </Box>
     </Box>
   );

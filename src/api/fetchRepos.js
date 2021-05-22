@@ -2,7 +2,7 @@ import axios from "./axios";
 import pick from "lodash/fp/pick";
 import map from "lodash/fp/map";
 import compose from "lodash/fp/compose";
-import { convertToCamelCase } from "./utils";
+import {convertToCamelCase, parseUserFromLocation} from "./utils";
 
 const transformRepoData = compose(
   map(convertToCamelCase),
@@ -20,7 +20,10 @@ const transformRepoData = compose(
   )
 );
 
-export default async (user) => {
-  const { data } = await axios.get(`users/${user}/repos`);
-  return transformRepoData(data);
+export default async () => {
+  const user = parseUserFromLocation();
+  if (user) {
+    const { data } = await axios.get(`users/${user}/repos`);
+    return transformRepoData(data);
+  }
 };
