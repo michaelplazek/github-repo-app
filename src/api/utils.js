@@ -26,7 +26,3 @@ export const parseUserFromLocation = () => {
 export const setLocation = (location) => {
   window.open(location, "_blank");
 };
-
-export const throwInvalidPathError = () =>{
-  throw new Error('Invalid path. Please use a path in the form /{username}');
-}

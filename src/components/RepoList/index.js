@@ -1,8 +1,8 @@
 import React from "react";
-import {Box, Heading} from "grommet";
+import { Box, Heading } from "grommet";
 import ListItem from "./ListItem";
-import {useQuery} from "react-query";
-import {fetchRepos} from "../../api";
+import { useQuery } from "react-query";
+import { fetchRepos } from "../../api";
 import Error from "../Error";
 import Loading from "./Loading";
 
@@ -20,16 +20,19 @@ const RepoList = () => {
       {isLoading && <Loading />}
       {isSuccess && (
         <Box>
-          <Heading alignSelf='center' level={2}>{`${repos.length} Repositories`}</Heading>
+          <Heading
+            alignSelf="center"
+            level={2}
+          >{`${repos.length} Repositories`}</Heading>
           {repos.map(
             ({
-               name,
-               description,
-               id,
-               htmlUrl,
-               language,
-               stargazersCount: stars,
-             }) => (
+              name,
+              description,
+              id,
+              htmlUrl,
+              language,
+              stargazersCount: stars,
+            }) => (
               <ListItem
                 key={id}
                 name={name}

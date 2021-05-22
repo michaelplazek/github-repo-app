@@ -1,7 +1,7 @@
 import axios from "./axios";
 import pick from "lodash/fp/pick";
 import compose from "lodash/fp/compose";
-import {convertToCamelCase, parseUserFromLocation} from "./utils";
+import { convertToCamelCase, parseUserFromLocation } from "./utils";
 
 const transformUserData = compose(
   convertToCamelCase,
