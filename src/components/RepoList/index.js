@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { fetchRepos } from "../../api";
 import Error from "../Error";
 import Loading from "./Loading";
-import Search from "./Search";
+import Search from "../Search";
 import {filterRepos} from "./utils";
 import Empty from "./Empty";
 
