@@ -9,7 +9,6 @@ const Content = () => {
     isLoading,
     isError
   } = useQuery('fetchRepo', () => fetchRepos('michaelplazek'));
-  console.log(data);
   return (
     <div>
 

@@ -1,5 +1,6 @@
 import axios from './axios';
 import pick from 'lodash/fp/pick'
+import {parseUserFromLocation} from "../utils";
 
 const transformUserData = pick([
   'avatar_url',
@@ -10,7 +11,9 @@ const transformUserData = pick([
   'email',
 ])
 
-export default async (user) => {
+export default async () => {
+  const user = parseUserFromLocation();
+  console.log(user);
   const { data } = await axios.get(`users/${user}`);
   return transformUserData(data);
 }
