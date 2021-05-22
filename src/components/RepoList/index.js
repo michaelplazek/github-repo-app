@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Box } from "grommet";
 import { useQuery } from "react-query";
-import ListItem from "./ListItem";
-import { fetchRepos } from "../../api";
 import Error from "../Error";
-import Loading from "./Loading";
 import Search from "../Search";
-import { filterRepos } from "./utils";
+import Loading from "./Loading";
 import Empty from "./Empty";
+import ListItem from "./ListItem";
+import { filterRepos } from "./utils";
+import { fetchRepos } from "../../api";
 
 const RepoList = () => {
   const [searchString, setSearchString] = useState("");
