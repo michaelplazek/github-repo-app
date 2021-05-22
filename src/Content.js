@@ -1,13 +1,15 @@
 import React from 'react';
 import {useQuery} from "react-query";
-import {fetchUser} from "./api";
+import {fetchRepos, fetchUser} from "./api";
 
 const Content = () => {
+  useQuery('fetchUser', () => fetchUser('michaelplazek'));
   const {
     data,
     isLoading,
     isError
-  } = useQuery('fetchUser', () => fetchUser('michaelplazek'));
+  } = useQuery('fetchRepo', () => fetchRepos('michaelplazek'));
+  console.log(data);
   return (
     <div>
 

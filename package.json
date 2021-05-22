@@ -17,8 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "precommit": "yarn format"
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
   "eslintConfig": {
     "extends": [
