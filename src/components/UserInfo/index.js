@@ -1,8 +1,7 @@
 import React from "react";
 import { Box, Heading, Text } from "grommet";
 import { useQuery } from "react-query";
-import { fetchUser } from "../../api";
-import { setLocation } from "../../api/utils";
+import { fetchUser, setLocation } from "../../api";
 
 const UserInfo = () => {
   const { data: user, isSuccess } = useQuery("fetchUser", fetchUser, {
