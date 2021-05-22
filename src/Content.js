@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import { Box } from "grommet";
 import RepoList from "./components/RepoList";
 import Error from "./components/Error";
-import { parseUserFromLocation } from "./api";
 import UserInfo from "./components/UserInfo";
+import { parseUserFromLocation } from "./api";
 
 const Content = () => {
   const validPath = parseUserFromLocation();
