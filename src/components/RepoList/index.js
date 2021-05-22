@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box } from "grommet";
-import ListItem from "./ListItem";
 import { useQuery } from "react-query";
+import ListItem from "./ListItem";
 import { fetchRepos } from "../../api";
 import Error from "../Error";
 import Loading from "./Loading";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Heading, Text } from "grommet";
-import { Star as StarIcon } from "grommet-icons/icons";
+import { Star as StarIcon } from "grommet-icons";
 import { setLocation } from "../../api/utils";
 
 const ListItem = ({ name, description, htmlUrl, language, stars }) => {

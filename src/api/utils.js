@@ -14,6 +14,8 @@ export const parseUserFromLocation = () => {
   const pathname = getPath();
   const paths = pathname.split("/");
   // handle trailing slashes
+  // first conditional handles '/user/'
+  // second conditional handles '/user'
   if (
     (paths.length === 3 && paths[2] === "") ||
     (paths.length === 2 && paths[1] !== "")
