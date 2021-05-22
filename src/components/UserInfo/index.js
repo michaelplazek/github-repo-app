@@ -19,6 +19,7 @@ const UserInfo = () => {
         <Box
           direction="row"
           gap="small"
+          align='center'
           onClick={() => setLocation(user.htmlUrl)}
         >
           <Box

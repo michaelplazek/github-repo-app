@@ -6,7 +6,7 @@ import "./App.css";
 const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <Grommet full={true} theme={theme}>
+    <Grommet background='#1D1F20' full={true} theme={theme}>
       <Content />
     </Grommet>
   </QueryClientProvider>

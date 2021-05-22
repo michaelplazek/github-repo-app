@@ -21,6 +21,7 @@ const RepoList = () => {
       {isSuccess && (
         <Box>
           <Heading
+            color='#9A8297'
             alignSelf="center"
             level={2}
           >{`${repos.length} Repositories`}</Heading>
