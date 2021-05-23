@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Box } from "grommet";
-import { useQuery } from "react-query";
+import {Box, InfiniteScroll} from "grommet";
+import {useInfiniteQuery, useQuery} from "react-query";
 import Error from "../Error";
 import Search from "../Search";
 import Loading from "./Loading";
 import Empty from "./Empty";
 import ListItem from "./ListItem";
-import { filterRepos } from "./utils";
+import {filterRepos, getPaginatedData} from "./utils";
 import { fetchRepos } from "../../api";
 
 const RepoList = () => {
@@ -14,11 +14,17 @@ const RepoList = () => {
   const {
     data = [],
     error,
+    fetchNextPage,
     isLoading,
     isSuccess,
     isError,
-  } = useQuery("fetchRepos", fetchRepos, { retry: 2, refetchInterval: 10000 });
-  const filteredRepos = filterRepos(data.repos, searchString);
+  } = useInfiniteQuery("fetchRepos", fetchRepos, {
+    getNextPageParam: (lastPage, pages) => lastPage,
+    retry: false,
+    refetchInterval: 10000
+  });
+  console.log(data);
+  const filteredRepos = getPaginatedData(data, searchString);
   const isEmpty = filteredRepos?.length === 0;
   return (
     <Box gap="small">
@@ -30,20 +36,25 @@ const RepoList = () => {
             <Search
               value={searchString}
               onChange={setSearchString}
-              placeholderText={`Search ${data.repos.length} repositories...`}
+              placeholderText={`Search ${filteredRepos.length} repositories...`}
             />
           </Box>
           <Box align="center" gap="medium">
             {!isEmpty ? (
-              filteredRepos.map(
-                ({
-                  name,
-                  description,
-                  id,
-                  htmlUrl,
-                  language,
-                  stargazersCount: stars,
-                }) => (
+              <InfiniteScroll
+                onMore={fetchNextPage}
+                steps={30}
+                items={filteredRepos}
+                renderMarker={Loading}
+              >
+                {({
+                    name,
+                    description,
+                    id,
+                    htmlUrl,
+                    language,
+                    stargazersCount: stars,
+                  }) => (
                   <ListItem
                     key={id}
                     name={name}
@@ -53,11 +64,9 @@ const RepoList = () => {
                     language={language}
                     stars={stars}
                   />
-                )
-              )
-            ) : (
-              <Empty message="No matching repositories" />
-            )}
+                )}
+              </InfiniteScroll>
+            ) : <Empty message="No matching repositories" />}
           </Box>
         </Box>
       )}

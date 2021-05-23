@@ -26,6 +26,7 @@ export const getNextLink = (headers) => {
   return linkTag.replace("<", "").replace(">", "");
 };
 
+// handle pagination by parsing response headers
 const fetchRepos = async ({ pageParam }) => {
   let data, headers;
   if (!pageParam) {
