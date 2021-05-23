@@ -6,7 +6,7 @@ import Search from "../Search";
 import Loading from "./Loading";
 import Empty from "./Empty";
 import ListItem from "./ListItem";
-import {filterRepos, getPaginatedData} from "./utils";
+import {getPaginatedData} from "./utils";
 import { fetchRepos } from "../../api";
 
 const RepoList = () => {

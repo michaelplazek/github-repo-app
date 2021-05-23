@@ -6,8 +6,7 @@ import get from "lodash/fp/get";
 const isMatch = (field, searchString) => (item) =>
   item[field]?.toLowerCase().indexOf(searchString.toLowerCase()) > -1;
 
-export const filterRepos = searchString => repos => {
-  console.log(repos);
+const filterRepos = searchString => repos => {
   if (searchString === "") return repos;
   const nameMatch = isMatch("name", searchString);
   const descriptionMatch = isMatch("description", searchString);
