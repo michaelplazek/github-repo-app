@@ -1,24 +1,30 @@
 import React, { useState } from "react";
-import { Box } from "grommet";
-import { useQuery } from "react-query";
+import { Box, InfiniteScroll } from "grommet";
+import { useInfiniteQuery } from "react-query";
+import noop from "lodash/noop";
 import Error from "../Error";
 import Search from "../Search";
 import Loading from "./Loading";
 import Empty from "./Empty";
 import ListItem from "./ListItem";
-import { filterRepos } from "./utils";
+import { getPaginatedData } from "./utils";
 import { fetchRepos } from "../../api";
 
 const RepoList = () => {
   const [searchString, setSearchString] = useState("");
   const {
-    data: repos,
+    data = [],
     error,
+    fetchNextPage,
+    hasNextPage,
     isLoading,
     isSuccess,
     isError,
-  } = useQuery("fetchRepos", fetchRepos, { retry: 2, refetchInterval: 10000 });
-  const filteredRepos = filterRepos(repos, searchString);
+  } = useInfiniteQuery("fetchRepos", fetchRepos, {
+    getNextPageParam: ({ nextLink }, pages) => nextLink,
+    retry: false,
+  });
+  const filteredRepos = getPaginatedData(data, searchString);
   const isEmpty = filteredRepos?.length === 0;
   return (
     <Box gap="small">
@@ -30,13 +36,18 @@ const RepoList = () => {
             <Search
               value={searchString}
               onChange={setSearchString}
-              placeholderText={`Search ${repos.length} repositories...`}
+              placeholderText={`Search ${filteredRepos.length} repositories...`}
             />
           </Box>
-          <Box align="center" gap="medium">
+          <Box align="center">
             {!isEmpty ? (
-              filteredRepos.map(
-                ({
+              <InfiniteScroll
+                onMore={hasNextPage ? fetchNextPage : noop}
+                steps={filteredRepos.length}
+                items={filteredRepos}
+                renderMarker={hasNextPage ? Loading : () => <div />}
+              >
+                {({
                   name,
                   description,
                   id,
@@ -53,8 +64,8 @@ const RepoList = () => {
                     language={language}
                     stars={stars}
                   />
-                )
-              )
+                )}
+              </InfiniteScroll>
             ) : (
               <Empty message="No matching repositories" />
             )}
