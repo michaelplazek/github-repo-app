@@ -1,4 +1,5 @@
 import axios from "./axios";
+import parse from 'parse-link-header';
 import pick from "lodash/fp/pick";
 import map from "lodash/fp/map";
 import compose from "lodash/fp/compose";
@@ -20,10 +21,9 @@ const transformRepoData = compose(
   )
 );
 
-export const getNextLink = (headers) => {
-  const linkTag = headers.link.split(";")[0];
-  // :shrug:
-  return linkTag.replace("<", "").replace(">", "");
+export const getNextLink = ({ link }) => {
+  const parsedLinks = parse(link);
+  return parsedLinks?.next?.url;
 };
 
 // handle pagination by parsing response headers
@@ -37,7 +37,7 @@ const fetchRepos = async ({ pageParam }) => {
       headers = response.headers;
     }
   } else {
-    const response = await axios.get(pageParam.nextLink);
+    const response = await axios.get(pageParam);
     data = response.data;
     headers = response.headers;
   }

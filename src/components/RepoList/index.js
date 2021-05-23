@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {Box, InfiniteScroll} from "grommet";
-import {useInfiniteQuery, useQuery} from "react-query";
+import {useInfiniteQuery} from "react-query";
+import noop from 'lodash/noop';
 import Error from "../Error";
 import Search from "../Search";
 import Loading from "./Loading";
@@ -15,15 +16,14 @@ const RepoList = () => {
     data = [],
     error,
     fetchNextPage,
+    hasNextPage,
     isLoading,
     isSuccess,
     isError,
   } = useInfiniteQuery("fetchRepos", fetchRepos, {
-    getNextPageParam: (lastPage, pages) => lastPage,
-    retry: false,
-    refetchInterval: 10000
+    getNextPageParam: ({ nextLink }, pages) => nextLink,
+    retry: false
   });
-  console.log(data);
   const filteredRepos = getPaginatedData(data, searchString);
   const isEmpty = filteredRepos?.length === 0;
   return (
@@ -42,8 +42,8 @@ const RepoList = () => {
           <Box align="center">
             {!isEmpty ? (
               <InfiniteScroll
-                onMore={fetchNextPage}
-                steps={30}
+                onMore={hasNextPage ? fetchNextPage : noop}
+                steps={filteredRepos.length}
                 items={filteredRepos}
                 renderMarker={Loading}
               >
