@@ -39,7 +39,7 @@ const RepoList = () => {
               placeholderText={`Search ${filteredRepos.length} repositories...`}
             />
           </Box>
-          <Box align="center" gap="medium">
+          <Box align="center">
             {!isEmpty ? (
               <InfiniteScroll
                 onMore={fetchNextPage}

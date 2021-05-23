@@ -11,6 +11,7 @@ const ListItem = ({ name, description, htmlUrl, language, stars }) => {
       direction="row"
       round="small"
       pad="medium"
+      margin={{ bottom: 'medium' }}
       background="#333"
       onClick={() => setLocation(htmlUrl)}
       hoverIndicator={true}
