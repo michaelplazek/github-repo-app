@@ -1,5 +1,5 @@
 import axios from "./axios";
-import parse from 'parse-link-header';
+import parse from "parse-link-header";
 import pick from "lodash/fp/pick";
 import map from "lodash/fp/map";
 import compose from "lodash/fp/compose";

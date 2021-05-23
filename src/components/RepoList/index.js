@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import {Box, InfiniteScroll} from "grommet";
-import {useInfiniteQuery} from "react-query";
-import noop from 'lodash/noop';
+import { Box, InfiniteScroll } from "grommet";
+import { useInfiniteQuery } from "react-query";
+import noop from "lodash/noop";
 import Error from "../Error";
 import Search from "../Search";
 import Loading from "./Loading";
 import Empty from "./Empty";
 import ListItem from "./ListItem";
-import {getPaginatedData} from "./utils";
+import { getPaginatedData } from "./utils";
 import { fetchRepos } from "../../api";
 
 const RepoList = () => {
@@ -22,7 +22,7 @@ const RepoList = () => {
     isError,
   } = useInfiniteQuery("fetchRepos", fetchRepos, {
     getNextPageParam: ({ nextLink }, pages) => nextLink,
-    retry: false
+    retry: false,
   });
   const filteredRepos = getPaginatedData(data, searchString);
   const isEmpty = filteredRepos?.length === 0;
@@ -45,16 +45,16 @@ const RepoList = () => {
                 onMore={hasNextPage ? fetchNextPage : noop}
                 steps={filteredRepos.length}
                 items={filteredRepos}
-                renderMarker={Loading}
+                renderMarker={hasNextPage ? Loading : () => <div />}
               >
                 {({
-                    name,
-                    description,
-                    id,
-                    htmlUrl,
-                    language,
-                    stargazersCount: stars,
-                  }) => (
+                  name,
+                  description,
+                  id,
+                  htmlUrl,
+                  language,
+                  stargazersCount: stars,
+                }) => (
                   <ListItem
                     key={id}
                     name={name}
@@ -66,7 +66,9 @@ const RepoList = () => {
                   />
                 )}
               </InfiniteScroll>
-            ) : <Empty message="No matching repositories" />}
+            ) : (
+              <Empty message="No matching repositories" />
+            )}
           </Box>
         </Box>
       )}
